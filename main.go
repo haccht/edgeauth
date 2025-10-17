@@ -138,6 +138,9 @@ func computeHMAC(a string, key []byte, data string) string {
 func main() {
 	var opts options
 	if _, err := flags.Parse(&opts); err != nil {
+		if fe, ok := err.(*flags.Error); ok && fe.Type == flags.ErrHelp {
+			os.Exit(0)
+		}
 		os.Exit(1)
 	}
 
